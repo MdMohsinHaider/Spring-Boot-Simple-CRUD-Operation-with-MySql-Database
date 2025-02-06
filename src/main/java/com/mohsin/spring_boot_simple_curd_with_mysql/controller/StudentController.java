@@ -7,6 +7,7 @@ import java.util.List;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,7 +18,7 @@ import com.mohsin.spring_boot_simple_curd_with_mysql.entity.Student;
 @RestController
 public class StudentController {
 	
-	List<Student> students = new ArrayList<>();
+	List<Student> studentsList = new ArrayList<>();
 	
 	@RequestMapping(value = "/getStudentDob", method = RequestMethod.GET)
 	public String getStudentDob() {
@@ -36,9 +37,10 @@ public class StudentController {
 		return student;
 	}
 	
+	
 	@PostMapping(value = "/saveMultipleStudent")
 	public List<Student> saveStudentsController(@RequestBody List<Student> students) {
-		this.students.addAll(students);
+		this.studentsList.addAll(students);
 		
 		for (Student student : students) {
 			System.out.println(student);
@@ -49,11 +51,11 @@ public class StudentController {
 	
 	@GetMapping(value = "/deleteStudent/{id}")
 	public String deleteStudentById(@PathVariable(name = "id") Integer id) {
-		for (Student student : students) {
+		for (Student student : studentsList) {
 			int idStudent = student.getId();
 			if (idStudent == id) {
 				System.out.println(student);
-				students.remove(student);
+				studentsList.remove(student);
 				return "delete";
 			}
 		}
@@ -63,6 +65,19 @@ public class StudentController {
 	
 	@GetMapping(value = "/getAllStudent")
 	public List<Student> getAllStudentController(){
-		return students;
+		return studentsList;
+	}
+	
+	@GetMapping(value = "/updateStudent/{id}")
+	public Student updateStudentByIdController(@RequestBody Student student, @PathVariable(name = "id") Integer id) {
+		for (int i = 0; i < studentsList.size(); i++) {
+            if (studentsList.get(i).getId() == id) {
+                studentsList.set(i, student);
+                return student;
+            }
+        }
+		return null;
 	}
 }
+
+
