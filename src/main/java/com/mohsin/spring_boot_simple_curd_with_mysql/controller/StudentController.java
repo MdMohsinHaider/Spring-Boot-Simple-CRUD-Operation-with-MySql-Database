@@ -50,4 +50,50 @@ public class StudentController {
     public Student updateStudent(@PathVariable int id, @RequestBody Student updatedStudent) {
         return studentDao.updateStudent(id, updatedStudent);
     }
+    
+// JPA Query creation 🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁
+    
+    @GetMapping(value = "/getStudentByIdOptinal/{id}")
+    public Student getStudentByIdOptinalController(@PathVariable int id) {
+    	return studentDao.getStudentByIdOptionalDao(id);
+    }
+    
+    @GetMapping(value = "/getStudentByName/{name}")
+    public List<Student> getStudentByNameController(@PathVariable(name = "name") String name){
+    	return studentDao.getStudentByName(name);
+    }
+    
+    @DeleteMapping(value = "/deleteStudentByName/{name}")
+    public int deleteStudentByNameController(@PathVariable(name = "name") String name){
+    	return studentDao.deleteStudentByName(name);
+    }
+    
+ // Paging 🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁
+    
+    
+    @GetMapping(value = "/getAllStudentAscByPhone/{phone}")
+    public List<Student> getAllStudentAscByPhoneController(@PathVariable(name = "phone") String phone){
+    	return studentDao.getAllStudentAscByPhoneDao(phone);
+    }
+    
+    
+    @GetMapping(value = "/getAllStudentDescByPhone/{phone}")
+    public List<Student> getAllStudentDescByPhoneController(@PathVariable(name = "phone") String phone) {
+    	return studentDao.getAllStudentDescByPhoneDao(phone);
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

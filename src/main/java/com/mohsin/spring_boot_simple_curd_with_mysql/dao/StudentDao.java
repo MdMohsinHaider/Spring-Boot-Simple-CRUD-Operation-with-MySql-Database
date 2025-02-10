@@ -1,7 +1,12 @@
 package com.mohsin.spring_boot_simple_curd_with_mysql.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
+
 import org.springframework.stereotype.Repository;
+
 import com.mohsin.spring_boot_simple_curd_with_mysql.entity.Student;
 import com.mohsin.spring_boot_simple_curd_with_mysql.repository.StudentRepository;
 
@@ -52,6 +57,41 @@ public class StudentDao {
             student.setPhone(updatedStudent.getPhone());
             return studentRepository.save(student);
         }).orElse(null);
+    }
+    
+// JPA Query creation 🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁
+    
+    
+    // 1. find Student by Student Id
+    public Student getStudentByIdOptionalDao(int id) {
+    	Optional<Student> optional = studentRepository.findById(id);
+    	if (optional.isPresent()) 
+    		return optional.get();
+    	else return null;		
+    }
+    
+    // 2. find Student by Student name
+    public List<Student> getStudentByName(String name){
+    	return studentRepository.findByName(name);
+    }
+    
+    
+    // 3. delete Student by Student name
+    public int deleteStudentByName(String name){
+    	return studentRepository.deleteStudentByName(name);
+    }
+    
+    
+// Paging 🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁🍁
+    
+    // 1. paging Acceding order
+    public List<Student> getAllStudentAscByPhoneDao(String phone){
+    	return studentRepository.findAll(Sort.by(Direction.ASC, phone));
+    }
+    
+    // 2. paging Descending order
+    public List<Student> getAllStudentDescByPhoneDao(String phone){
+    	return studentRepository.findAll(Sort.by(Direction.DESC, phone));
     }
 }
 
