@@ -1,6 +1,7 @@
 package com.mohsin.spring_boot_simple_curd_with_mysql.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 
 import com.mohsin.spring_boot_simple_curd_with_mysql.dao.StudentDao;
@@ -81,6 +82,12 @@ public class StudentController {
     public List<Student> getAllStudentDescByPhoneController(@PathVariable(name = "phone") String phone) {
     	return studentDao.getAllStudentDescByPhoneDao(phone);
 	}
+    
+    
+    @GetMapping(value = "/fetchStudentWithPageSize/{pageNumber}/{pageSize}")
+    public Page<Student> fetchStudentWithPageSizeController(@PathVariable int pageNumber, @PathVariable int pageSize){
+    	return studentDao.fetchStudentWithPageSizeDao(pageNumber, pageSize);
+    }
 }
 
 

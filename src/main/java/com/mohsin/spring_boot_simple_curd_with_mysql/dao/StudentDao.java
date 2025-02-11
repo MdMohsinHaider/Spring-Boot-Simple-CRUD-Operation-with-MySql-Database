@@ -1,7 +1,8 @@
 package com.mohsin.spring_boot_simple_curd_with_mysql.dao;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 
@@ -92,6 +93,10 @@ public class StudentDao {
     // 2. paging Descending order
     public List<Student> getAllStudentDescByPhoneDao(String phone){
     	return studentRepository.findAll(Sort.by(Direction.DESC, phone));
+    }
+    
+    public Page<Student> fetchStudentWithPageSizeDao(int pageNumber, int pageSize){
+    	return studentRepository.findAll(PageRequest.of(pageNumber, pageSize));
     }
 }
 
